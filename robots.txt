@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://ibrar0064.github.io/you-name-it-luxury/sitemap.xml
+
+Sitemap: https://you-name-it-luxury.onrender.com/sitemap.xml
