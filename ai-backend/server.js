@@ -27,10 +27,10 @@ const server = http.createServer(async (req,res) => {
  try {
   const upstream = await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json','HTTP-Referer':ORIGIN,'X-Title':'You Name It Luxury'},body:JSON.stringify({model:MODEL,messages:[{role:'system',content:system},...messages],temperature:0.6,max_tokens:450})});
   const data = await upstream.json().catch(()=>({}));
-  if (!upstream.ok) { if (upstream.status===429 || upstream.status===402) return reply(res,429,{error:'Our free AI allowance is temporarily unavailable. Please complete and submit our enquiry form. Our team will contact you on WhatsApp.',fallback:true}); return reply(res,502,{error:'The assistant is temporarily unavailable. Please submit our enquiry form and our team will contact you on WhatsApp.',fallback:true}); }
+  if (!upstream.ok) { console.error('OpenRouter request failed:', upstream.status, JSON.stringify(data.error || data)); if (upstream.status===429 || upstream.status===402) return reply(res,429,{error:'Our free AI allowance is temporarily unavailable. Please complete and submit our enquiry form. Our team will contact you on WhatsApp.',fallback:true}); return reply(res,502,{error:'The assistant is temporarily unavailable. Please submit our enquiry form and our team will contact you on WhatsApp.',fallback:true}); }
   const answer=data.choices?.[0]?.message?.content;
-  if (typeof answer !== 'string' || !answer.trim()) return reply(res,502,{error:'Please submit our enquiry form and our team will contact you on WhatsApp.',fallback:true});
+  if (typeof answer !== 'string' || !answer.trim()) { console.error('OpenRouter returned no usable answer:', JSON.stringify({model:data.model,choices:data.choices,usage:data.usage})); return reply(res,502,{error:'The assistant could not prepare an answer. Please try again or submit the enquiry form.',fallback:true}); }
   return reply(res,200,{reply:answer.trim(),remaining:Math.max(0,DAILY_LIMIT-used)});
- } catch { return reply(res,502,{error:'The assistant is temporarily unavailable. Please submit our enquiry form and our team will contact you on WhatsApp.',fallback:true}); }
+ } catch (err) { console.error('OpenRouter connection error:', err && err.message ? err.message : 'unknown error'); return reply(res,502,{error:'The assistant is temporarily unavailable. Please submit our enquiry form and our team will contact you on WhatsApp.',fallback:true}); }
 });
 server.listen(PORT,'0.0.0.0',()=>console.log('You Name It Luxury AI backend listening on '+PORT));
