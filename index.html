@@ -56,6 +56,26 @@
 </script>
 <style>
 :root{--gold:#c8a96b;--ink:#111;--muted:#aaa;--panel:#1a1a1a}*{box-sizing:border-box}body{margin:0;background:#101010;color:#f7f4ee;font-family:Arial,Helvetica,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}header{border-bottom:1px solid #333;background:#101010;position:sticky;top:0;z-index:5}.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.brand{font-weight:800;letter-spacing:3px}.brand span{display:block;color:var(--gold);font-size:12px;letter-spacing:5px}.nav a.contact{border:1px solid var(--gold);padding:9px 15px;color:var(--gold);border-radius:3px}.hero{min-height:560px;display:grid;align-items:center;background:radial-gradient(ellipse at 75% 45%,#51432e 0,#29231b 22%,#111 62%);border-bottom:1px solid #333}.eyebrow{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.05;max-width:760px;margin:18px 0}.hero p{max-width:590px;color:#d0cbc1;font-size:18px}.btn{display:inline-block;background:var(--gold);color:#111;font-weight:700;padding:13px 22px;border-radius:3px;margin-top:15px}.section{padding:72px 0}.section h2{font-size:clamp(28px,4vw,42px);margin:0 0 8px}.lead{color:var(--muted);margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}.vehicle{background:var(--panel);border:1px solid #35312a;padding:0;min-height:0;overflow:hidden;border-radius:4px;transition:transform .2s,border-color .2s}.vehicle:hover{transform:translateY(-4px);border-color:var(--gold)}.vehicle img{display:block;width:100%;height:190px;object-fit:cover;background:#222}.vehicle-copy{padding:18px 20px 20px}.vehicle h3{margin:0 0 6px}.vehicle p{color:var(--muted);font-size:14px;margin:0}.note{border-left:3px solid var(--gold);padding:16px 20px;background:#191713;color:#d2c9b8;margin-top:28px}.contactbox{background:linear-gradient(120deg,#292219,#171717);padding:32px;border:1px solid #51432e}.contactbox a{color:var(--gold);text-decoration:underline}.contactbox p{color:#d1ccc2}.enquiry-form{display:grid;gap:9px;max-width:620px;margin-top:22px}.enquiry-form label{color:var(--gold);font-size:14px}.enquiry-form input,.enquiry-form select,.enquiry-form textarea{width:100%;padding:12px;background:#101010;color:#f7f4ee;border:1px solid #51432e;border-radius:3px;font:inherit}.enquiry-form button{border:0;cursor:pointer;justify-self:start}footer{border-top:1px solid #333;padding:28px 0;color:#aaa;font-size:13px}footer strong{color:#eee}@media(max-width:600px){.hero{min-height:480px}.section{padding:52px 0}.nav{gap:12px}.nav .contact{font-size:13px}}
+
+/* Free, self-contained website assistant */
+#ynl-chat-launcher{position:fixed;right:18px;bottom:18px;z-index:20;border:1px solid #e0c27d;background:#c8a96b;color:#111;border-radius:999px;padding:13px 18px;font-weight:700;box-shadow:0 5px 22px #0008;cursor:pointer}
+#ynl-chat-panel{position:fixed;right:18px;bottom:78px;z-index:21;width:min(360px,calc(100vw - 28px));height:min(520px,calc(100dvh - 110px));background:#171717;border:1px solid #8d7549;border-radius:12px;box-shadow:0 12px 40px #000b;display:none;overflow:hidden;color:#f7f4ee}
+#ynl-chat-panel.open{display:flex;flex-direction:column}
+.ynl-chat-head{background:#211c14;padding:14px 16px;border-bottom:1px solid #51432e;display:flex;justify-content:space-between;align-items:center}
+.ynl-chat-head strong{color:#e0c27d}.ynl-chat-head small{display:block;color:#bbb;font-size:11px}
+#ynl-chat-close{background:none;border:0;color:#eee;font-size:24px;cursor:pointer}
+#ynl-chat-messages{padding:14px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:10px}
+.ynl-msg{max-width:88%;padding:10px 12px;border-radius:10px;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.ynl-msg.bot{background:#29251e;border:1px solid #49402f;align-self:flex-start}
+.ynl-msg.user{background:#c8a96b;color:#111;align-self:flex-end}
+.ynl-chat-actions{padding:0 12px 10px;display:flex;gap:7px;flex-wrap:wrap}
+.ynl-chat-actions button{background:#201d18;border:1px solid #8d7549;color:#e5c98d;border-radius:20px;padding:7px 10px;font-size:12px;cursor:pointer}
+.ynl-chat-form{display:flex;gap:7px;padding:10px;border-top:1px solid #49402f}
+#ynl-chat-input{min-width:0;flex:1;background:#101010;color:#fff;border:1px solid #51432e;border-radius:7px;padding:11px;font:inherit}
+#ynl-chat-send{background:#c8a96b;color:#111;border:0;border-radius:7px;padding:0 14px;font-weight:700;cursor:pointer}
+.ynl-chat-form-note{text-align:center;color:#999;font-size:10px;padding:0 8px 8px}
+@media(max-width:480px){#ynl-chat-launcher{right:12px;bottom:12px}#ynl-chat-panel{right:10px;bottom:70px;width:calc(100vw - 20px);height:min(540px,calc(100dvh - 90px))}}
+
 </style>
 </head>
 <body>
@@ -104,4 +124,49 @@ document.getElementById('enquiry-form').addEventListener('submit',function(event
 </script>
 </main>
 <footer><div class="wrap"><strong>You Name It Luxury</strong><br>Luxury vehicle enquiries · UAE<br><p>This website is an enquiry and marketing platform, not a vehicle rental operator. Vehicle availability, quotations, bookings, payments and rental services are provided directly by the relevant licensed rental company. No booking is confirmed through this website.</p>© <span id="year">2026</span> You Name It Luxury</div></footer>
+
+<!-- Free automated FAQ assistant: no external service, API key or paid subscription -->
+<button id="ynl-chat-launcher" type="button" aria-controls="ynl-chat-panel" aria-expanded="false">Chat with us</button>
+<section id="ynl-chat-panel" role="dialog" aria-label="You Name It Luxury chat assistant" aria-modal="false">
+ <div class="ynl-chat-head"><div><strong>You Name It Luxury</strong><small>Automated website assistant · English</small></div><button id="ynl-chat-close" type="button" aria-label="Close chat">×</button></div>
+ <div id="ynl-chat-messages" aria-live="polite"><div class="ynl-msg bot">Hello! Welcome to You Name It Luxury. I can help with vehicle options, quotations and enquiries. What would you like to know?</div></div>
+ <div class="ynl-chat-actions">
+  <button type="button" data-question="What vehicles can I enquire about?">Vehicle options</button>
+  <button type="button" data-question="How much does it cost?">Prices</button>
+  <button type="button" data-question="How do I make an enquiry?">Make an enquiry</button>
+ </div>
+ <form class="ynl-chat-form" id="ynl-chat-form"><input id="ynl-chat-input" type="text" maxlength="500" placeholder="Type your question..." autocomplete="off" aria-label="Your message"><button id="ynl-chat-send" type="submit">Send</button></form>
+ <div class="ynl-chat-form-note">For availability and quotations, please submit the enquiry form.</div>
+</section>
+<script>
+(function(){
+ const launcher=document.getElementById('ynl-chat-launcher');
+ const panel=document.getElementById('ynl-chat-panel');
+ const close=document.getElementById('ynl-chat-close');
+ const messages=document.getElementById('ynl-chat-messages');
+ const form=document.getElementById('ynl-chat-form');
+ const input=document.getElementById('ynl-chat-input');
+ const enquiry='https://you-name-it-luxury.onrender.com/#enquiry-form';
+ function show(){panel.classList.add('open');launcher.setAttribute('aria-expanded','true');input.focus();}
+ function hide(){panel.classList.remove('open');launcher.setAttribute('aria-expanded','false');launcher.focus();}
+ launcher.addEventListener('click',show);close.addEventListener('click',hide);
+ function add(text,who,link){const bubble=document.createElement('div');bubble.className='ynl-msg '+who;bubble.textContent=text;if(link){const a=document.createElement('a');a.href=link;a.textContent='Open enquiry form';a.style.cssText='display:block;margin-top:8px;color:#e0c27d;text-decoration:underline;font-weight:bold';bubble.appendChild(a);}messages.appendChild(bubble);messages.scrollTop=messages.scrollHeight;}
+ function answer(raw){
+  const q=raw.toLowerCase();
+  if(/human|person|someone|speak to|talk to|agent|representative|staff|team member/.test(q)) return {text:'Please complete and submit our enquiry form. Our team will contact you on WhatsApp.',link:enquiry};
+  if(/price|cost|rate|how much|quotation|quote/.test(q)) return {text:'We do not display fixed prices. The quotation depends on the vehicle, travel date, duration, route and service requirements. Please submit the enquiry form and our team will check availability with a licensed rental provider before sharing a quotation.',link:enquiry};
+  if(/book|booking|reserve|reservation|availability|available|hire|rent/.test(q)) return {text:'To request availability, please complete the enquiry form with your WhatsApp number, travel date, duration, pickup location, destination and preferred vehicle. Our team will check with a licensed rental provider and contact you on WhatsApp. This website does not confirm bookings or take payments.',link:enquiry};
+  if(/vehicle|car|fleet|yukon|sprinter|v.class|maybach|rolls|range rover|bentley|sedan|suv/.test(q)) return {text:'You can enquire about GMC Yukon, Mercedes-Benz V-Class, Mercedes-Benz Sprinter, Mercedes-Maybach, Rolls-Royce, Range Rover, Bentley and other premium vehicle options. Actual availability is confirmed by the licensed provider.',link:enquiry};
+  if(/where|location|area|dubai|sharjah|uae|airport/.test(q)) return {text:'We welcome enquiries for Dubai, Sharjah and locations across the UAE. Please include your pickup location and destination in the enquiry form so the team can check your request.' ,link:enquiry};
+  if(/payment|pay|deposit|contract|rental agreement|licensed/.test(q)) return {text:'You Name It Luxury is an enquiry and marketing platform. Vehicle supply, booking confirmation, payment and rental agreements are handled directly by the relevant licensed rental provider. No payment is taken on this website.'};
+  if(/hello|hi|hey|good morning|good afternoon|good evening/.test(q)) return {text:'Hello! I can help with vehicle categories, general pricing information and how to enquire. What would you like to know?'};
+  if(/form|contact|whatsapp|enquir/.test(q)) return {text:'Please complete and submit our enquiry form with your WhatsApp number and journey details. Our team will contact you on WhatsApp after checking your request.',link:enquiry};
+  return {text:'Thanks for your question. I can help with vehicle options, general quotation information and the enquiry process. For a specific request or anything not covered here, please submit our enquiry form and our team will contact you on WhatsApp.',link:enquiry};
+ }
+ function send(value){const text=value.trim();if(!text)return;add(text,'user');input.value='';const result=answer(text);add(result.text,'bot',result.link);}
+ form.addEventListener('submit',function(e){e.preventDefault();send(input.value);});
+ document.querySelectorAll('#ynl-chat-panel [data-question]').forEach(function(b){b.addEventListener('click',function(){send(b.getAttribute('data-question'));});});
+})();
+</script>
+
 </body></html>
