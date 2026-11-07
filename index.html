@@ -132,8 +132,7 @@ document.getElementById('enquiry-form').addEventListener('submit',function(event
  <div id="ynl-chat-messages" aria-live="polite"><div class="ynl-msg bot">Hello! Welcome to You Name It Luxury. I can help with vehicle options, quotations and enquiries. What would you like to know?</div></div>
  <div class="ynl-chat-actions">
   <button type="button" data-question="What vehicles can I enquire about?">Vehicle options</button>
-  <button type="button" data-question="How much does it cost?">Prices</button>
-  <button type="button" data-question="How do I make an enquiry?">Make an enquiry</button>
+  <button type="button" data-intent="enquiry">Make an enquiry</button>
  </div>
  <form class="ynl-chat-form" id="ynl-chat-form"><input id="ynl-chat-input" type="text" maxlength="500" placeholder="Type your question..." autocomplete="off" aria-label="Your message"><button id="ynl-chat-send" type="submit">Send</button></form>
  <div class="ynl-chat-form-note">For availability and quotations, please submit the enquiry form.</div>
@@ -173,6 +172,10 @@ document.getElementById('enquiry-form').addEventListener('submit',function(event
  }
  form.addEventListener('submit',function(e){e.preventDefault();send(input.value);});
  document.querySelectorAll('#ynl-chat-panel [data-question]').forEach(function(b){b.addEventListener('click',function(){send(b.getAttribute('data-question'));});});
+ const enquiryButton=document.querySelector('#ynl-chat-panel [data-intent="enquiry"]');
+ enquiryButton.addEventListener('click',function(){
+  add('To make an enquiry, please complete and submit the form with your preferred vehicle, travel date, duration, pickup location and destination. Our team will review your request and contact you on WhatsApp. A licensed rental provider will confirm availability and the final quotation.','bot',enquiry);
+ });
 })();
 </script>
 
