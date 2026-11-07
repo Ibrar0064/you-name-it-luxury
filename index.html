@@ -151,19 +151,26 @@ document.getElementById('enquiry-form').addEventListener('submit',function(event
  function hide(){panel.classList.remove('open');launcher.setAttribute('aria-expanded','false');launcher.focus();}
  launcher.addEventListener('click',show);close.addEventListener('click',hide);
  function add(text,who,link){const bubble=document.createElement('div');bubble.className='ynl-msg '+who;bubble.textContent=text;if(link){const a=document.createElement('a');a.href=link;a.textContent='Open enquiry form';a.style.cssText='display:block;margin-top:8px;color:#e0c27d;text-decoration:underline;font-weight:bold';bubble.appendChild(a);}messages.appendChild(bubble);messages.scrollTop=messages.scrollHeight;}
- function answer(raw){
-  const q=raw.toLowerCase();
-  if(/human|person|someone|speak to|talk to|agent|representative|staff|team member/.test(q)) return {text:'Please complete and submit our enquiry form. Our team will contact you on WhatsApp.',link:enquiry};
-  if(/price|cost|rate|how much|quotation|quote/.test(q)) return {text:'We do not display fixed prices. The quotation depends on the vehicle, travel date, duration, route and service requirements. Please submit the enquiry form and our team will check availability with a licensed rental provider before sharing a quotation.',link:enquiry};
-  if(/book|booking|reserve|reservation|availability|available|hire|rent/.test(q)) return {text:'To request availability, please complete the enquiry form with your WhatsApp number, travel date, duration, pickup location, destination and preferred vehicle. Our team will check with a licensed rental provider and contact you on WhatsApp. This website does not confirm bookings or take payments.',link:enquiry};
-  if(/vehicle|car|fleet|yukon|sprinter|v.class|maybach|rolls|range rover|bentley|sedan|suv/.test(q)) return {text:'You can enquire about GMC Yukon, Mercedes-Benz V-Class, Mercedes-Benz Sprinter, Mercedes-Maybach, Rolls-Royce, Range Rover, Bentley and other premium vehicle options. Actual availability is confirmed by the licensed provider.',link:enquiry};
-  if(/where|location|area|dubai|sharjah|uae|airport/.test(q)) return {text:'We welcome enquiries for Dubai, Sharjah and locations across the UAE. Please include your pickup location and destination in the enquiry form so the team can check your request.' ,link:enquiry};
-  if(/payment|pay|deposit|contract|rental agreement|licensed/.test(q)) return {text:'You Name It Luxury is an enquiry and marketing platform. Vehicle supply, booking confirmation, payment and rental agreements are handled directly by the relevant licensed rental provider. No payment is taken on this website.'};
-  if(/hello|hi|hey|good morning|good afternoon|good evening/.test(q)) return {text:'Hello! I can help with vehicle categories, general pricing information and how to enquire. What would you like to know?'};
-  if(/form|contact|whatsapp|enquir/.test(q)) return {text:'Please complete and submit our enquiry form with your WhatsApp number and journey details. Our team will contact you on WhatsApp after checking your request.',link:enquiry};
-  return {text:'Thanks for your question. I can help with vehicle options, general quotation information and the enquiry process. For a specific request or anything not covered here, please submit our enquiry form and our team will contact you on WhatsApp.',link:enquiry};
+ const history=[];
+ async function send(value){
+  const text=value.trim(); if(!text)return;
+  add(text,'user'); input.value=''; history.push({role:'user',content:text});
+  const waiting=document.createElement('div'); waiting.className='ynl-msg bot'; waiting.textContent='Thinking…'; messages.appendChild(waiting); messages.scrollTop=messages.scrollHeight;
+  const sendButton=document.getElementById('ynl-chat-send'); sendButton.disabled=true;
+  try{
+   const response=await fetch('https://you-name-it-luxury-ai.onrender.com/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})});
+   const data=await response.json();
+   waiting.remove();
+   if(!response.ok || !data.reply){
+    const fallback=data.error||'Our AI assistant is temporarily unavailable. Please complete and submit our enquiry form. Our team will contact you on WhatsApp.';
+    add(fallback,'bot',enquiry); history.pop();
+   }else{
+    history.push({role:'assistant',content:data.reply}); add(data.reply,'bot');
+   }
+  }catch(error){
+   waiting.remove(); add('Our AI assistant is temporarily unavailable. Please complete and submit our enquiry form. Our team will contact you on WhatsApp.','bot',enquiry); history.pop();
+  }finally{sendButton.disabled=false;input.focus();}
  }
- function send(value){const text=value.trim();if(!text)return;add(text,'user');input.value='';const result=answer(text);add(result.text,'bot',result.link);}
  form.addEventListener('submit',function(e){e.preventDefault();send(input.value);});
  document.querySelectorAll('#ynl-chat-panel [data-question]').forEach(function(b){b.addEventListener('click',function(){send(b.getAttribute('data-question'));});});
 })();
