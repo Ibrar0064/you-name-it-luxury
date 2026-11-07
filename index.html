@@ -82,10 +82,10 @@
 <article class="vehicle"><div class="vehicle-copy"><h3>Are prices shown on the website?</h3><p>No fixed prices are displayed. The licensed provider confirms the quotation based on the vehicle, date, duration, route and service requirements.</p></div></article>
 <article class="vehicle"><div class="vehicle-copy"><h3>Does this website confirm rentals or take payments?</h3><p>No. This website collects enquiries only. Vehicle supply, booking confirmation, payment and rental agreements are handled directly by the relevant licensed rental provider.</p></div></article>
 </div></section>
-<section class="section wrap"><div class="contactbox"><div class="eyebrow">Start your enquiry</div><h2>Request a vehicle quotation</h2><p>Complete these details and send your enquiry directly to us on WhatsApp. We will check availability with a licensed rental partner before sharing a quotation. No online payment or booking confirmation is made on this website.</p>
+<section class="section wrap"><div class="contactbox"><div class="eyebrow">Start your enquiry</div><h2>Request a vehicle quotation</h2><p>Complete these details and send your enquiry directly to us on WhatsApp. We will check availability with a licensed rental partner before sharing a quotation. Our team will contact you on the WhatsApp number you provide. No online payment or booking confirmation is made on this website.</p>
 <form id="enquiry-form" class="enquiry-form">
 <label for="customer-name">Your name</label><input id="customer-name" name="name" autocomplete="name" required placeholder="Enter your name">
-<label for="customer-phone">Your contact number</label><input id="customer-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Include country code">
+<label for="customer-phone">Your WhatsApp number (required)</label><input id="customer-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Include country code, e.g. +971 5X XXX XXXX">
 <label for="vehicle-choice">Vehicle required</label><select id="vehicle-choice" name="vehicle" required><option value="">Select a vehicle category</option><option>GMC Yukon</option><option>Mercedes-Benz V-Class</option><option>Mercedes-Benz Sprinter</option><option>Mercedes-Maybach</option><option>Other luxury vehicle</option></select>
 <label for="travel-date">Travel date</label><input id="travel-date" name="date" type="date" required>
 <label for="duration">Duration / hours</label><input id="duration" name="duration" required placeholder="e.g. 5 hours, full day, 3 days">
@@ -98,7 +98,7 @@
 document.getElementById('enquiry-form').addEventListener('submit',function(event){
  event.preventDefault();
  const data=new FormData(event.currentTarget);
- const lines=['Hello, I would like a luxury vehicle quotation.','Name: '+data.get('name'),'Contact: '+data.get('phone'),'Vehicle: '+data.get('vehicle'),'Travel date: '+data.get('date'),'Duration: '+data.get('duration'),'Pickup: '+data.get('pickup'),'Destination: '+data.get('destination'),'Additional details: '+(data.get('details')||'None'),'Please check availability and share your quotation.'];
+ const lines=['Hello, I would like a luxury vehicle quotation.','Name: '+data.get('name'),'WhatsApp number: '+data.get('phone'),'Vehicle: '+data.get('vehicle'),'Travel date: '+data.get('date'),'Duration: '+data.get('duration'),'Pickup: '+data.get('pickup'),'Destination: '+data.get('destination'),'Additional details: '+(data.get('details')||'None'),'Please check availability and share your quotation.'];
  window.location.href='https://wa.me/971569685056?text='+encodeURIComponent(lines.join('\n'));
 });
 </script>
