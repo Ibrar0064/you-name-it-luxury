@@ -1,0 +1,1 @@
+{"name":"you-name-it-luxury-ai","version":"1.0.0","private":true,"description":"Private AI chat backend for You Name It Luxury","scripts":{"start":"node server.js"},"engines":{"node":">=18"}}
